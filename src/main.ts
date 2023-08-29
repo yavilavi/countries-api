@@ -1,10 +1,15 @@
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
+import {NestFactory} from '@nestjs/core';
+import {AppModule} from './app.module';
 import helmet from 'helmet';
+import {Logger} from '@nestjs/common';
+
+const port = process.env.PORT ? parseInt(process.env.PORT) : 3000;
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  app.use(helmet());
-  await app.listen(process.env.PORT ?? 3000);
+    const app = await NestFactory.create(AppModule);
+    app.use(helmet());
+    await app.listen(port);
+    Logger.log(`Running in port ${port}`, 'main');
 }
+
 bootstrap();

@@ -1,0 +1,85 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+type timeZone {
+  zoneName String
+  gmtOffset Int
+  gmtOffsetName String
+  abbreviation String
+  tzName String
+}
+
+type translations {
+  kr String?
+  pt String?
+  nl String?
+  hr String?
+  fa String?
+  de String?
+  es String?
+  fr String?
+  ja String?
+  it String?
+  cn String?
+  tr String?
+}
+
+model Country {
+  id Int @id @map("_id")
+  name String
+  iso3 String
+  iso2 String
+  numeric_code String
+  phone_code String
+  capital String
+  currency String
+  currency_name String
+  currency_symbol String
+  tld String
+  native String?
+  region String
+  subregion String
+  nationality String
+  timezones timeZone[]
+  translations translations
+  latitude String
+  longitude String
+  emoji String
+  emojiU String
+  states State[]
+}
+
+model State {
+  id Int @id @map("_id")
+  name String
+  country_id Int
+  country_code String
+  fips_code String
+  iso2 String
+  type String
+  latitude String
+  longitude String
+  country Country @relation(fields: [country_id], references: [id])
+  cities City[]
+}
+
+model City {
+  id Int @id  @map("_id")
+  name String
+  state_id Int
+  state_code String
+  state_name String
+  country_id Int
+  country_code String
+  country_name String
+  latitude String
+  longitude String
+  wikiDataId String
+  state State @relation(fields: [state_id], references: [id])
+}

@@ -17,28 +17,7 @@ let CountryService = exports.CountryService = class CountryService {
         this.prisma = prisma;
     }
     getCountries() {
-        return this.prisma.country.findMany({});
-    }
-    getCitiesByCountryId(id) {
-        return this.prisma.city.findMany({
-            where: {
-                country_id: id,
-            },
-        });
-    }
-    getCitiesByCountryCode(country_code) {
-        return this.prisma.city.findMany({
-            where: {
-                country_code,
-            },
-        });
-    }
-    getCitiesByCountryname(country_name) {
-        return this.prisma.city.findMany({
-            where: {
-                country_name,
-            },
-        });
+        return this.prisma.country.findMany({ orderBy: { name: 'asc' } });
     }
 };
 exports.CountryService = CountryService = __decorate([

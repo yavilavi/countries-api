@@ -12,23 +12,44 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CountryService = void 0;
 const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("../prisma.service");
+const client_1 = require("@prisma/client");
 let CountryService = exports.CountryService = class CountryService {
     constructor(prisma) {
         this.prisma = prisma;
     }
-    getCountries(selectFields) {
-        let select;
-        if (selectFields && selectFields !== '*') {
-            selectFields?.split(',').forEach((fieldName) => {
-                if (!select)
-                    select = {};
-                select[fieldName] = true;
+    async getCountries(selectFields) {
+        try {
+            let select = {
+                id: true,
+                name: true,
+                iso3: true,
+                iso2: true,
+            };
+            if (selectFields && selectFields !== '*') {
+                select = undefined;
+                selectFields?.split(',').forEach((fieldName) => {
+                    if (!select)
+                        select = {};
+                    select[fieldName] = true;
+                });
+            }
+            if (selectFields === '*')
+                select = undefined;
+            return await this.prisma.country.findMany({
+                orderBy: { name: 'asc' },
+                select,
             });
         }
-        return this.prisma.country.findMany({
-            orderBy: { name: 'asc' },
-            select,
-        });
+        catch (e) {
+            const err = e;
+            common_1.Logger.error(err.message);
+            common_1.Logger.error(err.stack);
+            if (err instanceof client_1.Prisma.PrismaClientValidationError) {
+                const msg = err.message.split('\n');
+                throw new common_1.BadRequestException(`${msg[msg.length - 1].split('`.')[0]}\`.`);
+            }
+            throw new common_1.InternalServerErrorException(err);
+        }
     }
 };
 exports.CountryService = CountryService = __decorate([

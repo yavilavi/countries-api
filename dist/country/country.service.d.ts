@@ -1,8 +1,9 @@
 import { PrismaService } from '../prisma.service';
+import { Prisma } from '@prisma/client';
 export declare class CountryService {
     private prisma;
     constructor(prisma: PrismaService);
-    getCountries(): import("@prisma/client").Prisma.PrismaPromise<({
+    getCountries(selectFields?: string): Prisma.PrismaPromise<({
         id: number;
         name: string;
         iso3: string;

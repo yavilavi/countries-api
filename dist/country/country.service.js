@@ -16,8 +16,19 @@ let CountryService = exports.CountryService = class CountryService {
     constructor(prisma) {
         this.prisma = prisma;
     }
-    getCountries() {
-        return this.prisma.country.findMany({ orderBy: { name: 'asc' } });
+    getCountries(selectFields) {
+        let select;
+        if (selectFields && selectFields !== '*') {
+            selectFields?.split(',').forEach((fieldName) => {
+                if (!select)
+                    select = {};
+                select[fieldName] = true;
+            });
+        }
+        return this.prisma.country.findMany({
+            orderBy: { name: 'asc' },
+            select,
+        });
     }
 };
 exports.CountryService = CountryService = __decorate([

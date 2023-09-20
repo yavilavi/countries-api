@@ -22,21 +22,21 @@ let CountryService = exports.CountryService = class CountryService {
     getCitiesByCountryId(id) {
         return this.prisma.city.findMany({
             where: {
-                country_id: id
+                country_id: id,
             },
         });
     }
     getCitiesByCountryCode(country_code) {
         return this.prisma.city.findMany({
             where: {
-                country_code
+                country_code,
             },
         });
     }
     getCitiesByCountryname(country_name) {
         return this.prisma.city.findMany({
             where: {
-                country_name
+                country_name,
             },
         });
     }

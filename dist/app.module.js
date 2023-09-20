@@ -24,7 +24,7 @@ exports.AppModule = AppModule = __decorate([
             country_module_1.CountryModule,
             throttler_1.ThrottlerModule.forRoot({
                 ttl: 30,
-                limit: 10,
+                limit: 30,
             }),
         ],
         controllers: [app_controller_1.AppController],

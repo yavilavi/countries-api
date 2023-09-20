@@ -23,9 +23,9 @@ exports.CityModule = CityModule = __decorate([
             prisma_service_1.PrismaService,
             {
                 provide: core_1.APP_GUARD,
-                useClass: throttler_1.ThrottlerGuard
-            }
-        ]
+                useClass: throttler_1.ThrottlerGuard,
+            },
+        ],
     })
 ], CityModule);
 //# sourceMappingURL=city.module.js.map

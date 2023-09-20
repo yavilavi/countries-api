@@ -17,10 +17,13 @@ let StateModule = exports.StateModule = class StateModule {
 exports.StateModule = StateModule = __decorate([
     (0, common_1.Module)({
         controllers: [state_controller_1.StateController],
-        providers: [state_service_1.StateService, {
+        providers: [
+            state_service_1.StateService,
+            {
                 provide: core_1.APP_GUARD,
-                useClass: throttler_1.ThrottlerGuard
-            }]
+                useClass: throttler_1.ThrottlerGuard,
+            },
+        ],
     })
 ], StateModule);
 //# sourceMappingURL=state.module.js.map

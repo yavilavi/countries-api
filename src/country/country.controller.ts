@@ -1,6 +1,5 @@
-import {Controller, Get, Post, Body, Param, ParseIntPipe} from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { CountryService } from './country.service';
-import { CreateCountryDto } from './dto/create-country.dto';
 
 @Controller('country')
 export class CountryController {

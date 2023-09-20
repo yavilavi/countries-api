@@ -8,12 +8,12 @@ import { ThrottlerModule } from '@nestjs/throttler';
 
 @Module({
   imports: [
-      CityModule,
+    CityModule,
     StateModule,
     CountryModule,
     ThrottlerModule.forRoot({
       ttl: 30,
-      limit: 10,
+      limit: 30,
     }),
   ],
   controllers: [AppController],

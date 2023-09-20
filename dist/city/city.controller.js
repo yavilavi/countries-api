@@ -19,17 +19,29 @@ let CityController = exports.CityController = class CityController {
     constructor(cityService) {
         this.cityService = cityService;
     }
-    getCitiesByCountryId(id) {
-        return this.cityService.getCitiesByCountryId(id);
+    getCitiesByCountryId(id, select) {
+        return this.cityService.getCitiesByCountryId(id, select);
+    }
+    getCitiesByStateId(id, select) {
+        return this.cityService.getCitiesByStateId(id, select);
     }
 };
 __decorate([
     (0, common_1.Get)('getCitiesByCountryId/:countryId'),
     __param(0, (0, common_1.Param)('countryId', common_1.ParseIntPipe)),
+    __param(1, (0, common_1.Query)('select')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [Number, String]),
     __metadata("design:returntype", void 0)
 ], CityController.prototype, "getCitiesByCountryId", null);
+__decorate([
+    (0, common_1.Get)('getCitiesByStateId/:stateId'),
+    __param(0, (0, common_1.Param)('stateId', common_1.ParseIntPipe)),
+    __param(1, (0, common_1.Query)('select')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number, String]),
+    __metadata("design:returntype", void 0)
+], CityController.prototype, "getCitiesByStateId", null);
 exports.CityController = CityController = __decorate([
     (0, common_1.Controller)('city'),
     __metadata("design:paramtypes", [city_service_1.CityService])

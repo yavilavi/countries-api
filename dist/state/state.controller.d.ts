@@ -1,12 +1,27 @@
 import { StateService } from './state.service';
-import { CreateStateDto } from './dto/create-state.dto';
-import { UpdateStateDto } from './dto/update-state.dto';
 export declare class StateController {
     private readonly stateService;
     constructor(stateService: StateService);
-    create(createStateDto: CreateStateDto): string;
-    findAll(): string;
-    findOne(id: string): string;
-    update(id: string, updateStateDto: UpdateStateDto): string;
-    remove(id: string): string;
+    getStates(select?: string): Promise<{
+        id: number;
+        name: string;
+        country_id: number;
+        country_code: string;
+        fips_code: string;
+        iso2: string;
+        type: string;
+        latitude: string;
+        longitude: string;
+    }[]>;
+    getStatesByCountryId(id: number, select?: string): import("@prisma/client").Prisma.PrismaPromise<{
+        id: number;
+        name: string;
+        country_id: number;
+        country_code: string;
+        fips_code: string;
+        iso2: string;
+        type: string;
+        latitude: string;
+        longitude: string;
+    }[]>;
 }

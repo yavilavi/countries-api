@@ -16,7 +16,23 @@ let CityService = exports.CityService = class CityService {
     constructor(prisma) {
         this.prisma = prisma;
     }
-    getCitiesByCountryId(id) {
+    getCitiesByCountryId(id, selectFields) {
+        let select = {
+            id: true,
+            name: true,
+            country_id: true,
+            state_id: true,
+        };
+        if (selectFields && selectFields !== '*') {
+            select = undefined;
+            selectFields?.split(',').forEach((fieldName) => {
+                if (!select)
+                    select = {};
+                select[fieldName] = true;
+            });
+        }
+        if (selectFields === '*')
+            select = undefined;
         return this.prisma.city.findMany({
             where: {
                 country_id: id,
@@ -24,6 +40,34 @@ let CityService = exports.CityService = class CityService {
             orderBy: {
                 name: 'asc',
             },
+            select,
+        });
+    }
+    getCitiesByStateId(id, selectFields) {
+        let select = {
+            id: true,
+            name: true,
+            country_id: true,
+            state_id: true,
+        };
+        if (selectFields && selectFields !== '*') {
+            select = undefined;
+            selectFields?.split(',').forEach((fieldName) => {
+                if (!select)
+                    select = {};
+                select[fieldName] = true;
+            });
+        }
+        if (selectFields === '*')
+            select = undefined;
+        return this.prisma.city.findMany({
+            where: {
+                state_id: id,
+            },
+            orderBy: {
+                name: 'asc',
+            },
+            select,
         });
     }
     getCitiesByCountryCode(country_code) {

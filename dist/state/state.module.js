@@ -12,6 +12,7 @@ const state_service_1 = require("./state.service");
 const state_controller_1 = require("./state.controller");
 const core_1 = require("@nestjs/core");
 const throttler_1 = require("@nestjs/throttler");
+const prisma_service_1 = require("../prisma.service");
 let StateModule = exports.StateModule = class StateModule {
 };
 exports.StateModule = StateModule = __decorate([
@@ -19,6 +20,7 @@ exports.StateModule = StateModule = __decorate([
         controllers: [state_controller_1.StateController],
         providers: [
             state_service_1.StateService,
+            prisma_service_1.PrismaService,
             {
                 provide: core_1.APP_GUARD,
                 useClass: throttler_1.ThrottlerGuard,

@@ -15,63 +15,32 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.StateController = void 0;
 const common_1 = require("@nestjs/common");
 const state_service_1 = require("./state.service");
-const create_state_dto_1 = require("./dto/create-state.dto");
-const update_state_dto_1 = require("./dto/update-state.dto");
 let StateController = exports.StateController = class StateController {
     constructor(stateService) {
         this.stateService = stateService;
     }
-    create(createStateDto) {
-        return this.stateService.create(createStateDto);
+    getStates(select) {
+        return this.stateService.getStates(select);
     }
-    findAll() {
-        return this.stateService.findAll();
-    }
-    findOne(id) {
-        return this.stateService.findOne(+id);
-    }
-    update(id, updateStateDto) {
-        return this.stateService.update(+id, updateStateDto);
-    }
-    remove(id) {
-        return this.stateService.remove(+id);
+    getStatesByCountryId(id, select) {
+        return this.stateService.getStatesByCountryId(id, select);
     }
 };
 __decorate([
-    (0, common_1.Post)(),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_state_dto_1.CreateStateDto]),
-    __metadata("design:returntype", void 0)
-], StateController.prototype, "create", null);
-__decorate([
-    (0, common_1.Get)(),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], StateController.prototype, "findAll", null);
-__decorate([
-    (0, common_1.Get)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Get)('getStates'),
+    __param(0, (0, common_1.Query)('select')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
-], StateController.prototype, "findOne", null);
+], StateController.prototype, "getStates", null);
 __decorate([
-    (0, common_1.Patch)(':id'),
-    __param(0, (0, common_1.Param)('id')),
-    __param(1, (0, common_1.Body)()),
+    (0, common_1.Get)('getStatesByCountryId/:countryId'),
+    __param(0, (0, common_1.Param)('countryId', common_1.ParseIntPipe)),
+    __param(1, (0, common_1.Query)('select')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, update_state_dto_1.UpdateStateDto]),
+    __metadata("design:paramtypes", [Number, String]),
     __metadata("design:returntype", void 0)
-], StateController.prototype, "update", null);
-__decorate([
-    (0, common_1.Delete)(':id'),
-    __param(0, (0, common_1.Param)('id')),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", void 0)
-], StateController.prototype, "remove", null);
+], StateController.prototype, "getStatesByCountryId", null);
 exports.StateController = StateController = __decorate([
     (0, common_1.Controller)('state'),
     __metadata("design:paramtypes", [state_service_1.StateService])

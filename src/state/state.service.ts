@@ -1,26 +1,73 @@
-import { Injectable } from '@nestjs/common';
-import { CreateStateDto } from './dto/create-state.dto';
-import { UpdateStateDto } from './dto/update-state.dto';
+import {
+  BadRequestException,
+  Injectable,
+  InternalServerErrorException,
+  Logger,
+} from '@nestjs/common';
+import { Prisma } from '@prisma/client';
+import { DefaultArgs } from '@prisma/client/runtime/library';
+import { PrismaService } from '../prisma.service';
 
 @Injectable()
 export class StateService {
-  create(createStateDto: CreateStateDto) {
-    return 'This action adds a new state';
+  constructor(private prisma: PrismaService) {}
+
+  async getStates(selectFields?: string) {
+    try {
+      let select: Prisma.StateSelect<DefaultArgs> | null | undefined = {
+        id: true,
+        name: true,
+        country_id: true,
+      };
+      if (selectFields && selectFields !== '*') {
+        select = undefined;
+        selectFields?.split(',').forEach((fieldName) => {
+          if (!select) select = {};
+          select[fieldName as keyof Prisma.StateSelect<DefaultArgs>] = true;
+        });
+      }
+      if (selectFields === '*') select = undefined;
+      return await this.prisma.state.findMany({
+        orderBy: { name: 'asc' },
+        select,
+      });
+    } catch (e: unknown) {
+      const err = e as Error;
+      Logger.error(err.message);
+      Logger.error(err.stack);
+      if (err instanceof Prisma.PrismaClientValidationError) {
+        const msg = err.message.split('\n');
+        throw new BadRequestException(
+          `${msg[msg.length - 1].split('`.')[0]}\`.`,
+        );
+      }
+      throw new InternalServerErrorException(err);
+    }
   }
 
-  findAll() {
-    return `This action returns all state`;
-  }
+  getStatesByCountryId(countryId: number, selectFields?: string) {
+    let select: Prisma.StateSelect<DefaultArgs> | null | undefined = {
+      id: true,
+      name: true,
+      country_id: true,
+    };
+    if (selectFields && selectFields !== '*') {
+      select = undefined;
+      selectFields?.split(',').forEach((fieldName) => {
+        if (!select) select = {};
+        select[fieldName as keyof Prisma.StateSelect<DefaultArgs>] = true;
+      });
+    }
+    if (selectFields === '*') select = undefined;
 
-  findOne(id: number) {
-    return `This action returns a #${id} state`;
-  }
-
-  update(id: number, updateStateDto: UpdateStateDto) {
-    return `This action updates a #${id} state`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} state`;
+    return this.prisma.state.findMany({
+      where: {
+        country_id: countryId,
+      },
+      orderBy: {
+        name: 'asc',
+      },
+      select,
+    });
   }
 }

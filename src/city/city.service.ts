@@ -26,6 +26,7 @@ export class CityService {
       where: {
         country_id: id,
       },
+      distinct: ['name'],
       orderBy: {
         name: 'asc',
       },

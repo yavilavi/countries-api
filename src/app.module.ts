@@ -12,7 +12,7 @@ import { ThrottlerModule } from '@nestjs/throttler';
     StateModule,
     CountryModule,
     ThrottlerModule.forRoot({
-      ttl: 30,
+      ttl: 60000,
       limit: 30,
     }),
   ],

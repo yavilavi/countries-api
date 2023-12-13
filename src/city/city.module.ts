@@ -10,10 +10,6 @@ import { ThrottlerGuard } from '@nestjs/throttler';
   providers: [
     CityService,
     PrismaService,
-    {
-      provide: APP_GUARD,
-      useClass: ThrottlerGuard,
-    },
   ],
 })
 export class CityModule {}

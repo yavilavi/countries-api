@@ -13,7 +13,7 @@ import { ThrottlerModule } from '@nestjs/throttler';
     CountryModule,
     ThrottlerModule.forRoot({
       ttl: 60000,
-      limit: 30,
+      limit: 400,
     }),
   ],
   controllers: [AppController],

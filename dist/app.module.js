@@ -14,6 +14,7 @@ const city_module_1 = require("./city/city.module");
 const state_module_1 = require("./state/state.module");
 const country_module_1 = require("./country/country.module");
 const throttler_1 = require("@nestjs/throttler");
+const core_1 = require("@nestjs/core");
 let AppModule = exports.AppModule = class AppModule {
 };
 exports.AppModule = AppModule = __decorate([
@@ -23,12 +24,18 @@ exports.AppModule = AppModule = __decorate([
             state_module_1.StateModule,
             country_module_1.CountryModule,
             throttler_1.ThrottlerModule.forRoot({
-                ttl: 30,
-                limit: 30,
+                ttl: 60000,
+                limit: 50,
             }),
         ],
         controllers: [app_controller_1.AppController],
-        providers: [app_service_1.AppService],
+        providers: [
+            app_service_1.AppService,
+            {
+                provide: core_1.APP_GUARD,
+                useClass: throttler_1.ThrottlerGuard,
+            },
+        ],
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map

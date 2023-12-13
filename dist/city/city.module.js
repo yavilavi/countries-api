@@ -11,21 +11,12 @@ const common_1 = require("@nestjs/common");
 const city_service_1 = require("./city.service");
 const city_controller_1 = require("./city.controller");
 const prisma_service_1 = require("../prisma.service");
-const core_1 = require("@nestjs/core");
-const throttler_1 = require("@nestjs/throttler");
 let CityModule = exports.CityModule = class CityModule {
 };
 exports.CityModule = CityModule = __decorate([
     (0, common_1.Module)({
         controllers: [city_controller_1.CityController],
-        providers: [
-            city_service_1.CityService,
-            prisma_service_1.PrismaService,
-            {
-                provide: core_1.APP_GUARD,
-                useClass: throttler_1.ThrottlerGuard,
-            },
-        ],
+        providers: [city_service_1.CityService, prisma_service_1.PrismaService],
     })
 ], CityModule);
 //# sourceMappingURL=city.module.js.map

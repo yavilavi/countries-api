@@ -11,21 +11,12 @@ const common_1 = require("@nestjs/common");
 const country_service_1 = require("./country.service");
 const country_controller_1 = require("./country.controller");
 const prisma_service_1 = require("../prisma.service");
-const core_1 = require("@nestjs/core");
-const throttler_1 = require("@nestjs/throttler");
 let CountryModule = exports.CountryModule = class CountryModule {
 };
 exports.CountryModule = CountryModule = __decorate([
     (0, common_1.Module)({
         controllers: [country_controller_1.CountryController],
-        providers: [
-            country_service_1.CountryService,
-            prisma_service_1.PrismaService,
-            {
-                provide: core_1.APP_GUARD,
-                useClass: throttler_1.ThrottlerGuard,
-            },
-        ],
+        providers: [country_service_1.CountryService, prisma_service_1.PrismaService],
     })
 ], CountryModule);
 //# sourceMappingURL=country.module.js.map

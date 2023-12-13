@@ -4,7 +4,8 @@ import { AppService } from './app.service';
 import { CityModule } from './city/city.module';
 import { StateModule } from './state/state.module';
 import { CountryModule } from './country/country.module';
-import { ThrottlerModule } from '@nestjs/throttler';
+import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
+import { APP_GUARD } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -13,7 +14,7 @@ import { ThrottlerModule } from '@nestjs/throttler';
     CountryModule,
     ThrottlerModule.forRoot({
       ttl: 60000,
-      limit: 30,
+      limit: 50,
     }),
   ],
   controllers: [AppController],

@@ -13,10 +13,16 @@ import { ThrottlerModule } from '@nestjs/throttler';
     CountryModule,
     ThrottlerModule.forRoot({
       ttl: 60000,
-      limit: 400,
+      limit: 30,
     }),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
+  ],
 })
 export class AppModule {}

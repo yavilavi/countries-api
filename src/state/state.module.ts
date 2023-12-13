@@ -10,10 +10,6 @@ import { PrismaService } from '../prisma.service';
   providers: [
     StateService,
     PrismaService,
-    {
-      provide: APP_GUARD,
-      useClass: ThrottlerGuard,
-    },
   ],
 })
 export class StateModule {}

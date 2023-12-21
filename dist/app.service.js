@@ -10,7 +10,14 @@ exports.AppService = void 0;
 const common_1 = require("@nestjs/common");
 let AppService = exports.AppService = class AppService {
     getHello() {
-        return 'Hello World!';
+        return `
+    <div>
+      <h1>Countries API</h1>
+      <p>A basic API for getting countries and cities list</p>
+      <small>Created by Yilmer Avila</small><br><br>
+      <a href="linkedin.com/in/yilmeravila/">LinkedIn</a>
+    </div>
+    `;
     }
 };
 exports.AppService = AppService = __decorate([

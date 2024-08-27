@@ -12,10 +12,12 @@ import { APP_GUARD } from '@nestjs/core';
     CityModule,
     StateModule,
     CountryModule,
-    ThrottlerModule.forRoot({
-      ttl: 60000,
-      limit: 1000,
-    }),
+    ThrottlerModule.forRoot([
+      {
+        ttl: 60000,
+        limit: 1000,
+      },
+    ]),
   ],
   controllers: [AppController],
   providers: [

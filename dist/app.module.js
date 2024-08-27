@@ -23,10 +23,12 @@ exports.AppModule = AppModule = __decorate([
             city_module_1.CityModule,
             state_module_1.StateModule,
             country_module_1.CountryModule,
-            throttler_1.ThrottlerModule.forRoot({
-                ttl: 60000,
-                limit: 500,
-            }),
+            throttler_1.ThrottlerModule.forRoot([
+                {
+                    ttl: 60000,
+                    limit: 1000,
+                },
+            ]),
         ],
         controllers: [app_controller_1.AppController],
         providers: [

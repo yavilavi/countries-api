@@ -1,4 +1,6 @@
 import { CityService } from './city.service';
+import { Response } from 'express';
+import { GetAllCitiesQueryDto } from './dto/getAllCitiesQueryDto';
 export declare class CityController {
     private readonly cityService;
     constructor(cityService: CityService);
@@ -15,6 +17,7 @@ export declare class CityController {
         longitude: string;
         wikiDataId: string;
     }[]>;
+    getAllCities(res: Response, { select, asFile, take }: GetAllCitiesQueryDto): Promise<Response<any, Record<string, any>> | undefined>;
     getCitiesByStateId(id: number, select?: string): import("@prisma/client").Prisma.PrismaPromise<{
         id: number;
         name: string;

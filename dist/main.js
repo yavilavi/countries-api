@@ -9,6 +9,7 @@ async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
     app.enableCors();
     app.use((0, helmet_1.default)());
+    app.useGlobalPipes(new common_1.ValidationPipe());
     await app.listen(port);
     common_1.Logger.log(`Running in port ${port}`, 'main');
 }

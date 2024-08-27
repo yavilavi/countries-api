@@ -11,13 +11,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GetAllCitiesQueryDto = void 0;
 const class_validator_1 = require("class-validator");
-const cities_fields_enum_1 = require("../enums/cities-fields.enum");
 class GetAllCitiesQueryDto {
 }
 exports.GetAllCitiesQueryDto = GetAllCitiesQueryDto;
 __decorate([
     (0, class_validator_1.IsOptional)(),
-    (0, class_validator_1.IsEnum)(cities_fields_enum_1.CitiesFieldsEnum),
     __metadata("design:type", String)
 ], GetAllCitiesQueryDto.prototype, "select", void 0);
 __decorate([
